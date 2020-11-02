@@ -11,8 +11,8 @@ on:
   pull_request:
 
 jobs:
-  Test Code:
-
+  test:
+    name: Test Code
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -27,7 +27,8 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Test with pytest
       run: pytest -v
-  Check code style:
+  lint:
+    name: Check code style
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
