@@ -13,13 +13,13 @@ def test_load_data():
     referendum, regions, departments = load_data()
 
     df_ref = pd.read_csv('data/referendum.csv', sep=';')
-    assert all(referendum.columns == df_ref.columns)
+    assert set(referendum.columns) == set(df_ref.columns)
 
     df_reg = pd.read_csv('data/regions.csv')
-    assert all(regions.columns == df_reg.columns)
+    assert set(regions.columns) == set(df_reg.columns)
 
     df_dep = pd.read_csv('data/departments.csv')
-    assert all(departments.columns == df_dep.columns)
+    assert set(departments.columns) == set(df_dep.columns)
 
 
 def test_merge_regions_and_departments():
@@ -30,7 +30,7 @@ def test_merge_regions_and_departments():
         df_reg, df_dep
     )
 
-    assert all(regions_and_departments.columns == [
+    assert set(regions_and_departments.columns) == set([
         'code_reg', 'name_reg', 'code_dep', 'name_dep'
     ])
     assert regions_and_departments.shape == (109, 4)
@@ -50,7 +50,7 @@ def test_merge_referendum_and_area():
         "There should be no missing values in the DataFrame. Use dropna?"
     )
 
-    assert all(referendum_and_areas.columns == [
+    assert set(referendum_and_areas.columns) == set([
         'Department code', 'Department name', 'Town code', 'Town name',
         'Registered', 'Abstentions', 'Null', 'Choice A', 'Choice B',
         'code_dep', 'code_reg', 'name_reg', 'name_dep'
@@ -74,7 +74,7 @@ def test_compute_referendum_result_by_regions():
     )
 
     # Check result shape
-    assert all(referendum_result_by_region.columns == [
+    assert set(referendum_result_by_region.columns) == set([
         'name_reg', 'Registered', 'Abstentions', 'Null', 'Choice A', 'Choice B'
     ]), (
         'To keep the name of the region, you can use either another merge or '
