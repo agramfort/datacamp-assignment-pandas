@@ -11,7 +11,7 @@
 ## How?
 
   - For the repository by clicking on the `Fork` button on the upper right corner
-  - Clone the repository of your fork with: `git clone https://github.com/MYLOGIN/datacamp-assignment1` (replace MYLOGIN with your GitHub login)
+  - Clone the repository of your fork with: `git clone https://github.com/MYLOGIN/datacamp-assignment-pandas` (replace MYLOGIN with your GitHub login)
   - Create a branch called `myassignment` using `git checkout -b myassignment`
   - Make the changes to complete the assignment. You have to modify the files that contain `questions` in their name. Do not modify the files that start with `test_`.
   - Open the pull request on GitHub
