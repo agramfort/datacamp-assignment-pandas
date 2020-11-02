@@ -10,6 +10,7 @@ aggregate them by regions and finally plot them on a map using `geopandas`.
 """
 import pandas as pd
 import geopandas as gpd
+import matplotlib.pyplot as plt
 
 
 def load_data():
@@ -44,14 +45,14 @@ def merge_referendum_and_areas(referendum, regions_and_departments):
 def compute_referendum_result_by_regions(referendum_and_areas):
     """Return a table with the absolute count for each region.
 
-    The return DataFrame should be indexed by name_reg and have columns:
-    ['name_reg','Registered', 'Abstentions', 'Null', 'Choice A', 'Choice B']
+    The return DataFrame should be indexed by `code_reg` and have columns:
+    ['name_reg', 'Registered', 'Abstentions', 'Null', 'Choice A', 'Choice B']
     """
 
     return pd.DataFrame({})
 
 
-def plot_referendum_map(referendum_and_areas):
+def plot_referendum_map(referendum_result_by_region):
     """Plot a map with the results from the referendum.
 
     * Load the geographic data with geopandas from `regions.geojson`.
@@ -76,6 +77,7 @@ if __name__ == "__main__":
     referendum_results = compute_referendum_result_by_regions(
         referendum_and_areas
     )
-    referendum_results.display()
+    print(referendum_results)
 
-    plot_referendum_map(referendum_and_areas)
+    plot_referendum_map(referendum_results)
+    plt.show()
