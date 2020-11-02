@@ -14,12 +14,12 @@ import matplotlib.pyplot as plt
 
 
 def load_data():
-    """Load data from the CSV files referundum/regions/departement."""
+    """Load data from the CSV files referundum/regions/departments."""
     referendum = pd.DataFrame({})
     regions = pd.DataFrame({})
-    departements = pd.DataFrame({})
+    departments = pd.DataFrame({})
 
-    return referendum, regions, departements
+    return referendum, regions, departments
 
 
 def merge_regions_and_departments(regions, departments):
@@ -35,7 +35,7 @@ def merge_regions_and_departments(regions, departments):
 def merge_referendum_and_areas(referendum, regions_and_departments):
     """Merge referendum and regions_and_departments in one DataFrame.
 
-    You can drop the lines relative to DOM-TOM-COM departements, and the
+    You can drop the lines relative to DOM-TOM-COM departments, and the
     french living abroad.
     """
 
