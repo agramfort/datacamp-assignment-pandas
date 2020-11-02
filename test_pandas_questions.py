@@ -30,10 +30,10 @@ def test_merge_regions_and_departments():
         df_reg, df_dep
     )
 
-    assert regions_and_departments.shape == (109, 4)
     assert all(regions_and_departments.columns == [
         'code_reg', 'name_reg', 'code_dep', 'name_dep'
     ])
+    assert regions_and_departments.shape == (109, 4)
 
 
 def test_merge_referendum_and_area():
@@ -47,15 +47,18 @@ def test_merge_referendum_and_area():
 
     # check that there is no missing values
     assert referendum_and_areas.shape == referendum_and_areas.dropna().shape, (
-        "There should be no missing values."
+        "There should be no missing values in the DataFrame. Use dropna?"
     )
 
-    assert referendum_and_areas.shape == (36565, 13)
     assert all(referendum_and_areas.columns == [
         'Department code', 'Department name', 'Town code', 'Town name',
         'Registered', 'Abstentions', 'Null', 'Choice A', 'Choice B',
         'code_dep', 'code_reg', 'name_reg', 'name_dep'
     ])
+    assert referendum_and_areas.shape == (36565, 13), (
+        "Shape of the DataFrame should be (36565, 13). "
+        "Check for mismatch in column formats."
+    )
 
 
 def test_compute_referendum_result_by_regions():
@@ -71,10 +74,13 @@ def test_compute_referendum_result_by_regions():
     )
 
     # Check result shape
-    assert referendum_result_by_region.shape == (13, 6)
     assert all(referendum_result_by_region.columns == [
         'name_reg', 'Registered', 'Abstentions', 'Null', 'Choice A', 'Choice B'
-    ])
+    ]), (
+        'To keep the name of the region, you can use either another merge or '
+        'a clever groupby.'
+    )
+    assert referendum_result_by_region.shape == (13, 6)
 
     # check that some of the values
     referendum_result_by_region = referendum_result_by_region.set_index(
@@ -101,7 +107,10 @@ def test_plot_referendum_map():
     )
     gdf_referendum = plot_referendum_map(referendum_result_by_region)
 
-    assert isinstance(gdf_referendum, gpd.GeoDataFrame)
+    assert isinstance(gdf_referendum, gpd.GeoDataFrame), (
+        "The return object should be a GeoDataFrame, not a "
+        f"{type(gdf_referendum)}."
+    )
     assert 'ratio' in gdf_referendum.columns
     gdf_referendum = gdf_referendum.set_index('name_reg')
     assert np.isclose(gdf_referendum['ratio'].loc['Normandie'], 0.427467)
