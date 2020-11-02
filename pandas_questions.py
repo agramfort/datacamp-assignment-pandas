@@ -52,11 +52,11 @@ def compute_referendum_result_by_regions(referendum_and_areas):
     return pd.DataFrame({})
 
 
-def plot_referendum_map(referendum_result_by_region):
+def plot_referendum_map(referendum_result_by_regions):
     """Plot a map with the results from the referendum.
 
     * Load the geographic data with geopandas from `regions.geojson`.
-    * Merge these info into `referendum_result_by_region`.
+    * Merge these info into `referendum_result_by_regions`.
     * Use the method `GeoDataFrame.plot` to display the result map. The results
       should display the rate of 'Choice A' over all expressed ballots.
     * Return a gpd.GeoDataFrame with a column 'ratio' containing the results.
