@@ -61,10 +61,8 @@ def compute_referendum_result_by_regions(referendum_and_areas):
 
     return referendum_and_areas[['name_reg', 'Registered', 'Abstentions', 'Null', 'Choice A', 'Choice B']]
 
-
 def plot_referendum_map(referendum_result_by_regions):
     """Plot a map with the results from the referendum.
-
     * Load the geographic data with geopandas from `regions.geojson`.
     * Merge these info into `referendum_result_by_regions`.
     * Use the method `GeoDataFrame.plot` to display the result map. The results
@@ -72,8 +70,17 @@ def plot_referendum_map(referendum_result_by_regions):
     * Return a gpd.GeoDataFrame with a column 'ratio' containing the results.
     """
 
-    return gpd.GeoDataFrame({})
+    regions = gpd.read_file('data/regions.geojson')
 
+    regions = regions.rename(columns={'code': 'code_reg'})
+
+    referendum_and_areas['rate A'] = referendum_and_areas['Choice A'] / (referendum_and_areas['Choice A'] + referendum_and_areas['Choice B'])
+
+    output = gpd.GeoDataFrame(referendum_and_areas.merge(regions, on='code_reg', how='right').dropna()[['code_reg', 'name_reg', 'geometry']])
+
+    output.plot('rate A')
+
+    return output
 
 if __name__ == "__main__":
 
