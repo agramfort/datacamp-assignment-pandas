@@ -37,7 +37,8 @@ def merge_regions_and_departments(regions, departments):
         'code_x': 'code_dep',
         'name_x': 'name_dep'
     })
-    merged['code_dep'] = merged['code_dep'].apply(lambda x: x[1:] if x[0]=='0' else x)
+    merged['code_dep'] = merged['code_dep'].apply(
+        lambda x: x[1:] if x[0] == '0' else x)
     return merged
 
 
